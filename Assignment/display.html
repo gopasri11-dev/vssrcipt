@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Display Products</title>
+        <title>Products</title>
         <style>
             body
             {
-                background-color: rgb(79, 86, 91);
+                background-color: rgb(51, 54, 57);
                 margin: 5px;
                 padding-left: 45px;
                 padding-right: 30px;
@@ -14,13 +14,11 @@
             #products
             {
                 display: flex;
-                gap:10px;
                 flex-wrap: wrap;
-                justify-content: space-evenly;
-                text-align: center;
+                gap: 10px;
             }
             #div{
-                background-color: white;
+                background-color: whitesmoke;
                 padding: 10px;
                 border-radius: 10px;
                 border: 2px solid;
@@ -35,12 +33,18 @@
                 width:150px;
                 height:150px
             }
+            #rate{
+                width: 160px;
+                height: 160px;
+                text-align: center;
+            }
         </style>
 
 
     </head>
     <body>
         <script>
+
             function Products()
             {
                 fetch("https://dummyjson.com/products")
@@ -52,8 +56,8 @@
                 })
                 .then(function(data)
                 { 
-                    console.log(data.products)
-                    genUI(data.products)
+                    console.log(data.products);
+                    genUI(data.products);
                 })
             }
           function   genUI(products)
@@ -71,18 +75,17 @@
                     var t=document.createElement("h5")
                     t.id="title"
                     t.innerText=item.title
+                    var c=document.createElement("cost")
+                    c.id="rate"
+                    c.innerText=item.price
                     p.appendChild(t)
-
-
-              
+                    p.appendChild(c)
                     div.appendChild(p)
-                    
-                    
                 });
                 document.body.appendChild(div)
-
             }
             Products()
+            
         </script>
     </body>
 </html>

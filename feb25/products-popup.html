@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #outerdiv{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        #card{
+          
+            margin: 20px;
+            padding: 20px;
+            height: 200px;
+            width: 250px;
+            background-color: aquamarine;
+            bottom: 0%;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        #uppercard{
+            height: 550px;
+            width: 900px;
+            background-color: aliceblue;
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            text-align: center;
+            
+        }
+        img{
+            height: 150px;
+            width:200px ;
+        }
+       #wrongbtn{
+        transform: translate(400px,5px);
+       }
+       #bd{
+        background-color: black;
+       }
+    </style>
+</head>
+<body>
+    
+    <script>
+        fetch("https://dummyjson.com/products")
+        .then(function(res){            
+            return res.json();
+        }).then(function(data){
+            console.log(data.products)
+             ui(data.products)
+        })
+        function ui(dt){
+          var od=document.createElement('div');
+            od.id='outerdiv'
+            dt.forEach(function(a)
+            {
+         
+              var d=document.createElement('div');
+              d.id='card';
+              d.onclick=()=>
+              {
+                UI(a)
+              }
+              var i=document.createElement('img');
+              i.src=a.thumbnail;
+              d.append(i);
+              var h=document.createElement('h3');
+              h.innerText=a.title;
+              d.append(h);
+              od.append(d)                    
+            })
+        document.body.append(od)
+        }
+        function UI(a)
+        {
+            var bigdiv=document.createElement('div');
+            bigdiv.id='bd'
+            var div=document.createElement('div');
+            div.id='uppercard'
+
+            var wb=document.createElement('button');
+                wb.innerText='X';
+                wb.id='wrongbtn'
+                wb.onclick=()=>{
+                    div.style.display='none'
+                }
+                div.append(wb)
+
+                var tit=document.createElement('h2');
+                tit.innerText=a.title                
+                div.append(tit)
+
+                var des=document.createElement('h6');
+                des.innerText=a.description;
+                div.append(des)
+
+                var i=document.createElement('img')           
+                i.src=a.thumbnail;               
+                div.append(i);
+
+                var pr=document.createElement('h3');
+                pr.innerText='Price:'+a.price;
+                pr.style.textDecoration='line-through'
+                div.append(pr)
+
+                var dis=document.createElement('h3');
+               var disc=(a.price/100* a.discountPercentage)
+                dis.innerText='Discount:'+disc
+                div.append(dis)
+                var h3=document.createElement('h3')
+                    h3.innerText='Review';
+                    div.append(h3)
+
+
+                a.reviews.forEach(function(q){
+                   
+                    var ul=document.createElement('ul');
+                    var li=document.createElement('li');
+                    li.innerText=q.comment;
+                    ul.appendChild(li);
+                    div.append(ul)
+                })
+                document.body.append(bigdiv)
+                document.body.append(div)
+        }
+        
+         </script>
+</body>
+</html>

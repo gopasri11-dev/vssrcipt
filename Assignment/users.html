@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Document
+        </title>
+        <style>
+            body
+            {
+                background-color: rgb(51, 54, 57);
+                margin: 5px;
+                padding-left: 45px;
+                padding-right: 30px;
+
+            }
+            #users
+            {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            #div{
+                background-color: whitesmoke;
+                padding: 10px;
+                border-radius: 10px;
+                border: 2px solid;
+                height: 350px;
+                width:200px;
+            }
+            #gender{
+                margin-bottom: 0px;
+                font-size: 15px;
+                text-align: center;
+            }
+            #age{
+                margin-bottom: 0px;
+                font-size: 15px;
+                text-align: center;
+            }
+            #lastname{
+                margin-bottom: 0px;
+                font-size: 15px;
+                text-align: center;
+            }
+            #firstname{
+                margin-bottom: 0px;
+                font-size: 15px;
+                text-align: center;
+            }
+            #mobile{
+                margin-bottom: 0px;
+                font-size: 15px;
+                text-align: center;
+            }
+            img{
+                width: 150px;
+                height: 150px;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            function users()
+            {
+                fetch("https://dummyjson.com/users")
+                .then( function( res)
+                {
+                    console.log(res)
+                    return res.json()
+                    
+                })
+                .then(function(data)
+                { 
+                    console.log(data.users);
+                    genUI(data.users);
+                })
+            }
+            
+            function genUI(users){
+                var div=document.createElement("div")
+                div.id="users"
+                users.forEach(function(item)
+                {
+                    var p=document.createElement("div")
+                    p.id="div"
+                    var i=document.createElement("img")
+                    i.src=item.image
+                    
+                    var f=document.createElement("h3")
+                    f.id= "firstname"
+                    f.innerText=item.firstName
+                  
+                    var l=document.createElement("h3")
+                    l.id="lastname"
+                    l.innerText=item.lastName
+                    var a=document.createElement("h3")
+                    a.id="age"
+                    a.innerText=item.age
+                    var g=document.createElement("h3")
+                    g.id="gender"
+                    g.innerText=item.gender
+                    var m=document.createElement("h3")
+                    m.id="mobile"
+                    m.innerText=item.phone
+                    p.appendChild(i)
+                    p.appendChild(f)
+                    p.appendChild(l)
+                    p.appendChild(a)
+                    p.appendChild(g)
+                    p.appendChild(m)
+                    div.appendChild(p)
+                });
+                document.body.appendChild(div)
+
+            }
+            users()
+ 
+        </script>
+    </body>
+</html>
