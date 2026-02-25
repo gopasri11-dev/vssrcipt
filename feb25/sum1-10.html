@@ -8,12 +8,14 @@
         
         <script>
             console.log("sum of 1-10")
-            function add(){
+            function add(cb){
                 var sumworker= new Worker("sum-worker.js")
-                sumworker.postMessage(0);
-    
+                    sumworker.postMessage(0);
+                    sumworker.onmessage=(s)=>{
+                    console.log(s.data)
+                }
             }
-            add()
+            add(function(c){console.log(c)})
             console.log("added")
         </script>
     </body>
